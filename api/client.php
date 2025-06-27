@@ -10,11 +10,20 @@ $db = $database->getConnection();
 $requestUri = $_SERVER['REQUEST_URI'];
 $scriptName = $_SERVER['SCRIPT_NAME'];
 
-// Supprimer /api/client.php de l'URI
 $path = str_replace($scriptName, '', $requestUri);
 $path = trim($path, '/');
-$id = is_numeric($path) ? intval($path) : null;
+$segments = explode('/', $path);
 
-// Appeler le contrôleur
+
+$action = $segments[0] ?? null; // client.php/ajouter
+$id = $segments[1] ?? null;
+
+$method = $_SERVER['REQUEST_METHOD'];
+
+
+
 $controller = new ClientController($db);
-$controller->handleRequest($_SERVER['REQUEST_METHOD'], $id);
+$controller->handleRequest($method, $action, $id)
+
+
+?>
