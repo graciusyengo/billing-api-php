@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Client.php';
+require_once __DIR__ . '/../helpers/SendJson.php';
 
 class ClientController {
     private $db;
